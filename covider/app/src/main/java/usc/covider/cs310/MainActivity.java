@@ -2,6 +2,7 @@ package usc.covider.cs310;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import usc.covider.cs310.util.DateUtil;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         CollectionReference users = FirebaseFirestore.getInstance().collection("users");
         TextView createAccount = findViewById(R.id.signup);
         Button login = findViewById(R.id.login);
+        TextView error = findViewById(R.id.error_msg);
         EditText email = findViewById(R.id.email);
         EditText password = findViewById(R.id.password);
         login.setOnClickListener(new View.OnClickListener() {
@@ -48,25 +50,21 @@ public class MainActivity extends AppCompatActivity {
                 users.whereEqualTo("email", e).whereEqualTo("password", p).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(!task.isSuccessful()  || task.getResult().getDocuments().size() == 0){
+                            error.setVisibility(View.VISIBLE);
+                            return;
+                        }
                         String userID = task.getResult().getDocuments().get(0).getId();
                         SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
                         SharedPreferences.Editor myEdit = sharedPreferences.edit();
                         myEdit.putString("userID", userID);
                         myEdit.apply();
-                        CollectionReference surveys = FirebaseFirestore.getInstance().collection("users");
-                        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                        Date today = new Date();
-                        String dateString = "";
-                        try {
-                            Date todayWithZeroTime = formatter.parse(formatter.format(today));
-                            dateString = todayWithZeroTime.toString();
-                        } catch(Exception e){
-                            e.printStackTrace();
-                        }
+                        CollectionReference surveys = FirebaseFirestore.getInstance().collection("surveys");
+                        String dateString = DateUtil.getToday();
                         surveys.whereEqualTo("userID", userID).whereEqualTo("date", dateString).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if(task.isSuccessful()){
+                                if(task.isSuccessful() && !e.equals("test")){
                                     QuerySnapshot querySnapshot = task.getResult();
                                     if(querySnapshot.getDocuments().size() > 0){
                                         Intent i = new Intent(MainActivity.this, ResultActivity.class);
@@ -75,9 +73,10 @@ public class MainActivity extends AppCompatActivity {
                                         Intent i = new Intent(MainActivity.this, SurveyActivity.class);
                                         MainActivity.this.startActivity(i);
                                     }
+                                } else {
+                                    Intent i = new Intent(MainActivity.this, SurveyActivity.class);
+                                    MainActivity.this.startActivity(i);
                                 }
-                                Intent i = new Intent(MainActivity.this, SurveyActivity.class);
-                                MainActivity.this.startActivity(i);
                             }
                         });
                     }

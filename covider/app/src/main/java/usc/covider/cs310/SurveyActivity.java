@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import androidx.appcompat.app.AppCompatActivity;
+import usc.covider.cs310.util.DateUtil;
 
 public class SurveyActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
@@ -43,11 +44,8 @@ public class SurveyActivity extends AppCompatActivity {
                 boolean hCovid = hasCovid.isChecked();
                 boolean hSymptom = hasSymptoms.isChecked();
                 boolean hContact = hasContact.isChecked();
-                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                Date today = new Date();
-                try {
-                    Date todayWithZeroTime = formatter.parse(formatter.format(today));
-                    Survey s = new Survey(hCovid, hSymptom, hContact, todayWithZeroTime.toString(), userID);
+                String dateString = DateUtil.getToday();
+                    Survey s = new Survey(hCovid, hSymptom, hContact, dateString, userID);
                     SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
                     String userID = sharedPreferences.getString("userID", "");
                     surveys.add(s).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -57,9 +55,6 @@ public class SurveyActivity extends AppCompatActivity {
                             SurveyActivity.this.startActivity(i);
                         }
                     });
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
             }
         });
     }
