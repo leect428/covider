@@ -2,6 +2,7 @@ package usc.covider.cs310.util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 //simple class to return date
@@ -17,5 +18,9 @@ public class DateUtil {
             e.printStackTrace();
         }
         return dateString;
+    }
+    public static long getTodayEpoch(){
+        LocalDate d = LocalDate.now();
+        return d.toEpochDay();
     }
 }

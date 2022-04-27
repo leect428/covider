@@ -30,6 +30,10 @@
             android:name="usc.covider.cs310.ResultActivity"
             android:exported="true">
         </activity>
+        <activity
+            android:name="usc.covider.cs310.BuildingActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

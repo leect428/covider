@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp"
+    android:padding="10dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/building"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BUILDING"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20sp"
+
+        />
+    <TextView
+        android:id="@+id/covidcount"
+        android:textColor="@color/red"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="# people reported to have covid"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/building"
+        android:layout_marginStart="20sp"
+
+        />
+    <TextView
+        android:id="@+id/symptomcount"
+        android:textColor="@color/orange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="# people reported to have symptoms"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/covidcount"
+        app:layout_constraintStart_toEndOf="@id/building"
+        android:layout_marginStart="20sp"
+
+        />
+    <TextView
+        android:id="@+id/contactcount"
+        android:textColor="@color/yellow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="# people reported to have contact"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/symptomcount"
+        app:layout_constraintStart_toEndOf="@id/building"
+        android:layout_marginStart="20sp"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

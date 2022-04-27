@@ -60,11 +60,11 @@ public class MainActivity extends AppCompatActivity {
                         myEdit.putString("userID", userID);
                         myEdit.apply();
                         CollectionReference surveys = FirebaseFirestore.getInstance().collection("surveys");
-                        String dateString = DateUtil.getToday();
+                        long dateString = DateUtil.getTodayEpoch();
                         surveys.whereEqualTo("userID", userID).whereEqualTo("date", dateString).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if(task.isSuccessful() && !e.equals("test")){
+                                if(task.isSuccessful() && !e.equals("test@test.com")){
                                     QuerySnapshot querySnapshot = task.getResult();
                                     if(querySnapshot.getDocuments().size() > 0){
                                         Intent i = new Intent(MainActivity.this, ResultActivity.class);

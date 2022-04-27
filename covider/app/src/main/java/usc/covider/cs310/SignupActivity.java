@@ -43,7 +43,7 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String e = email.getText().toString();
-                if(e.length()!=6 && !EmailUtil.isValid(e)){
+                if(!EmailUtil.isValid(e)){
                     error.setText("Invalid email");
                     error.setVisibility(View.VISIBLE);
                     return;
@@ -71,7 +71,8 @@ public class SignupActivity extends AppCompatActivity {
                                 SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
                                 SharedPreferences.Editor myEdit = sharedPreferences.edit();
                                 myEdit.putString("userID", userID);
-                                Intent i = new Intent(SignupActivity.this, SurveyActivity.class);
+                                myEdit.apply();
+                                Intent i = new Intent(SignupActivity.this, BuildingActivity.class);
                                 SignupActivity.this.startActivity(i);
                             }
                         });

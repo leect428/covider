@@ -36,7 +36,7 @@ public class SurveyActivityTest {
     @Test
     public void testSurveyActivity() {
         // Type text and then press the button.
-        onView(withId(R.id.email)).perform(typeText("test"), closeSoftKeyboard());
+        onView(withId(R.id.email)).perform(typeText("test@test.com"), closeSoftKeyboard());
         onView(withId(R.id.password)).perform(typeText("test"), closeSoftKeyboard());
 
         onView(withId(R.id.login)).perform(click());
@@ -56,6 +56,6 @@ public class SurveyActivityTest {
             e.printStackTrace();
         }
 
-        onView(withId(R.id.numcovid)).check(matches(isDisplayed()));
+        onView(withId(R.id.recycler)).check(matches(isDisplayed()));
     }
 }

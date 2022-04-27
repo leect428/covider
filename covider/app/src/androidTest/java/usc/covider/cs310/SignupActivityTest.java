@@ -45,7 +45,7 @@ public class SignupActivityTest {
             int index = (int) (rnd.nextFloat() * possible.length());
             builder.append(possible.charAt(index));
         }
-        String name = builder.toString();
+        String name = builder.toString()+"@gmail.com";
         onView(withId(R.id.email)).perform(typeText(name), closeSoftKeyboard());
         onView(withId(R.id.password)).perform(typeText("test"), closeSoftKeyboard());
         onView(withId(R.id.confirmpass)).perform(typeText("test"), closeSoftKeyboard());
@@ -56,7 +56,7 @@ public class SignupActivityTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        onView(withId(R.id.has_covid)).check(matches(isDisplayed()));
+        onView(withId(R.id.fertitta_hall)).check(matches(isDisplayed()));
     }
 
     //fail if passwords do not match
